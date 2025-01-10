@@ -11,7 +11,14 @@ jobs:
       steps:
         - name: codecheckout
           uses: actions/checkout@v4
+        - name: python setup
+          uses: action/setup-python@v3
+        - name: Install Poetry
+          run: |
+            curl -sSL https://install.python-poetry.org | python3 -
+            echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
         - name: Install dependencies
+          uses: actions/poetry@v2
           run: |
             poetry install
         - name: unitest
