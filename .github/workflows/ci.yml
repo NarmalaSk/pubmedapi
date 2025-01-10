@@ -2,32 +2,46 @@ name: Script Testing
 
 on:
   push:
-     branches:
-       - main
-       - master
+    branches:
+      - main
+      - master
+
 jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - name: codecheckout
-          uses: actions/checkout@v4
-        - name: python setup
-          uses: actions/setup-python@v4
-        - name: Install Poetry
-          run: |
-            curl -sSL https://install.python-poetry.org | python3 -
-            echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
-        - name: change to dir agnaith
-          run: |
-            cd ..
-            cd aganaithtask
-        - name: Install dependencies
-          run: |
-            poetry install
-        - name: unitest
-          run: |
-            pytest
-        - name: bash
-          run: |
-            echo "tested code successfully"
-               
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout Code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Step 2: Set up Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'  # Adjust Python version as needed
+
+    # Step 3: Install Poetry
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
+
+    # Step 4: Change Directory
+    - name: Change to project directory
+      working-directory: ./aganaithtask
+      run: echo "Changed to aganaithtask directory"
+
+    # Step 5: Install Dependencies
+    - name: Install dependencies
+      working-directory: ./aganaithtask
+      run: poetry install
+
+    # Step 6: Run Unit Tests
+    - name: Run unit tests
+      working-directory: ./aganaithtask
+      run: poetry run pytest
+
+    # Step 7: Output Success Message
+    - name: Success message
+      run: echo "Tested code successfully"
