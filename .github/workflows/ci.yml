@@ -21,30 +21,47 @@ jobs:
       with:
         python-version: '3.10'  # Adjust Python version as needed
 
-    # Step 3: Install Poetry
+    # Step 3: Cache Poetry dependencies
+    - name: Cache Poetry dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          .venv
+          $HOME/.cache/pypoetry
+        key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-poetry-
+
+    # Step 4: Install Poetry
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
         echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
 
-    # Step 4: Change Directory
+    # Step 5: Update Poetry to the latest version
+    - name: Update Poetry to the latest version
+      run: poetry self update
+
+    # Step 6: Change Directory
     - name: Change to project directory
       working-directory: ./aganaithtask
       run: echo "Changed to aganaithtask directory"
-      
+
+    # Step 7: Update lock file
     - name: Update lock file
       working-directory: ./aganaithtask
       run: poetry lock
-    # Step 5: Install Dependencies
+
+    # Step 8: Install Dependencies
     - name: Install dependencies
       working-directory: ./aganaithtask
       run: poetry install
 
-    # Step 6: Run Unit Tests
+    # Step 9: Run Unit Tests
     - name: Run unit tests
       working-directory: ./aganaithtask
       run: poetry run pytest
 
-    # Step 7: Output Success Message
+    # Step 10: Output Success Message
     - name: Success message
       run: echo "Tested code successfully"
