@@ -19,6 +19,7 @@ jobs:
             echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
         - name: change to dir agnaith
           run: |
+            cd ..
             cd aganaithtask
         - name: Install dependencies
           run: |
