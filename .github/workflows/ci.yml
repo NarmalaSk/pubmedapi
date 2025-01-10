@@ -38,30 +38,26 @@ jobs:
         curl -sSL https://install.python-poetry.org | python3 -
         echo "PATH=$HOME/.local/bin:$PATH" >> $GITHUB_ENV
 
-    # Step 5: Update Poetry to the latest version
-    - name: Update Poetry to the latest version
-      run: poetry self update
-
-    # Step 6: Change Directory
+    # Step 5: Change Directory
     - name: Change to project directory
       working-directory: ./aganaithtask
       run: echo "Changed to aganaithtask directory"
 
-    # Step 7: Update lock file
+    # Step 6: Update lock file
     - name: Update lock file
       working-directory: ./aganaithtask
       run: poetry lock
 
-    # Step 8: Install Dependencies
+    # Step 7: Install Dependencies
     - name: Install dependencies
       working-directory: ./aganaithtask
       run: poetry install
 
-    # Step 9: Run Unit Tests
+    # Step 8: Run Unit Tests
     - name: Run unit tests
       working-directory: ./aganaithtask
       run: poetry run pytest
 
-    # Step 10: Output Success Message
+    # Step 9: Output Success Message
     - name: Success message
       run: echo "Tested code successfully"
