@@ -31,7 +31,10 @@ jobs:
     - name: Change to project directory
       working-directory: ./aganaithtask
       run: echo "Changed to aganaithtask directory"
-
+      
+    - name: Update lock file
+      working-directory: ./aganaithtask
+      run: poetry lock
     # Step 5: Install Dependencies
     - name: Install dependencies
       working-directory: ./aganaithtask
