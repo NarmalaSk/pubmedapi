@@ -7,7 +7,7 @@ on:
        - master
 jobs:
     build:
-      runs-on: ubuntu
+      runs-on: ubuntu-latest
       steps:
         - name: codecheckout
           uses: actions/codecheckout@v2
