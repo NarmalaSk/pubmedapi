@@ -1,0 +1,21 @@
+name: Script Testing
+
+on:
+  push:
+     branches:
+       - main
+       - master
+jobs:
+    build:
+      runs-on: ubuntu
+      steps:
+        - name: codecheckout
+          uses: actions/codecheckout@v2
+
+        - name: unitest
+          run: |
+            pytest
+        - name: bash
+          run: |
+            echo "tested code successfully"
+               
