@@ -1,0 +1,15 @@
+on:
+  push:
+     branch:
+            runs-on: ubuntu
+          job:
+              steps:
+               - name: codecheckout
+                 uses: actions/code-checkout@v2
+               - name: Test
+                 run: |
+                 pytest
+
+            
+            
+            
